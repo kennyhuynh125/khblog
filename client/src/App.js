@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as types from './actions/action-types';
 import store from './store';
 import { connect } from 'react-redux';
+import Header from './components/Header';
 
 class App extends Component {
   componentDidMount() {
@@ -21,9 +22,7 @@ class App extends Component {
     console.log(this.props.posts);
     return (
       <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
+        <Header />
        {
          this.props.posts.map(post => {
            return (
