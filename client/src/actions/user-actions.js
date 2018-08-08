@@ -31,3 +31,17 @@ export const receiveLogout = (isFetching, isAuthenticated) => {
         isAuthenticated,
     };
 }
+
+export const receiveUsername = (input) => {
+    return {
+        type: types.USERNAME_INPUT,
+        input
+    }
+}
+
+export const receivePassword = (input) => {
+    return {
+        type: types.PASSWORD_INPUT,
+        input
+    }
+}
