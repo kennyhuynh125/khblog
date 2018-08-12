@@ -39,4 +39,15 @@ router.post('/api/deletepost/:id', (req, res) => {
     });
 });
 
+// used for logging in user
+router.post('/api/login', (req, res) => {
+    if (req.body.username === process.env.LOGIN_USERNAME && 
+        req.body.password === process.env.LOGIN_PASSWORD) {
+            console.log('lit');
+            res.send(true);
+    } else {
+        res.send(false);
+    }
+
+})
 module.exports = router;

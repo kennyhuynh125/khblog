@@ -3,14 +3,17 @@ import * as types from '../../actions/action-types';
 import store from '../../store';
 import { connect } from 'react-redux';
 
+import PostIntro from '../PostIntro';
+import { Container, Row } from '../../../node_modules/reactstrap';
+
 class Home extends Component {
   componentDidMount() {
-    fetch(`/api/posts/1`)
+    fetch(`/api/posts`)
     .then((resp) => resp.json())
     .then((data) => {
       store.dispatch({
-        type: types.GET_POST_SUCCESS,
-        post: data,
+        type: types.GET_POSTS_SUCCESS,
+        posts: data,
       });
     })
     .catch(error => {
@@ -21,16 +24,22 @@ class Home extends Component {
     console.log(this.props.posts);
     return (
       <div>
-       {
-         this.props.posts.map(post => {
-           return (
-            <div key={post.id}>
-              <h1>{post.title}</h1>
-              <p>{post.post}</p>
-            </div>
-           )
-         })
-       }
+        <Container>
+          <Row>
+          {
+            this.props.posts.map(post => {
+              return (
+                <PostIntro key={post.id}
+                  id={post.id}
+                  title={post.title}
+                  post={post.post.substring(0,50)}
+                  date={post.created_at}
+                />
+              )
+            })
+          }
+        </Row>
+       </Container>
       </div>
     );
   }

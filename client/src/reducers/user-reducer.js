@@ -2,7 +2,7 @@ import * as types from '../actions/action-types';
 
 const initialState = {
     isFetching: false,
-    isAuthenticated: false,
+    isAuthenticated: localStorage.getItem('id_token') ? true : false,
     username: '',
     password: '',
 };

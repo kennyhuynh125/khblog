@@ -37,11 +37,33 @@ class Login extends Component {
 
     // calls api to fetch login success
     login = () => {
-        console.log(this.props);
+        axios.post(`/api/login`, {
+            username: this.props.username,
+            password: this.props.password
+        })
+        .then((response) => {
+            // if response is true, dispatch login request/success
+            // and send back to home page
+            if (response.data === true) {
+                store.dispatch({
+                    type: types.LOGIN_REQUEST,
+                    isFetching: true,
+                    isAuthenticated: false,
+                });
+                localStorage.setItem('id_token', 'logged');
+                this.props.history.push('/');
+                store.dispatch({
+                    type: types.LOGIN_SUCCESS,
+                    isFetching: false,
+                    isAuthenticated: true,
+                })
+            } else {
+                alert('Wrong username and password.');
+            }
+        })
     }
 
     render() {
-        console.log(this.props);
         return (
             <div>
                 <Form>
@@ -51,7 +73,7 @@ class Login extends Component {
                     </FormGroup>
                     <FormGroup>
                         <Label for="pass">Password</Label>
-                        <Input type="text" name="pass" id="pass" onChange={this.handlePassword} />
+                        <Input type="password" name="pass" id="pass" onChange={this.handlePassword} />
                     </FormGroup>
                     <Button color="primary" onClick={this.login}>Login</Button>
                 </Form>

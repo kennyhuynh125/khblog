@@ -22,6 +22,7 @@ class Header extends Component {
             isAuthenticated: true,
         });
         alert('You have successfully logged out!');
+        localStorage.removeItem('id_token');
         store.dispatch({
             type: types.LOGOUT_SUCCESS,
             isFetching: false,
@@ -30,6 +31,7 @@ class Header extends Component {
     }
     render() {
         console.log(this.props.isAuthenticated);
+        console.log(localStorage.getItem('id_token'));
         return (
             <Navbar expand="md">
             <NavbarBrand href="/" className="mr-auto">KH Blog</NavbarBrand>
@@ -47,7 +49,7 @@ class Header extends Component {
                     {
                         this.props.isAuthenticated && (
                             <NavItem>
-                                <NavLink onClick={this.logout}>Logout</NavLink>
+                                <NavLink href='#' onClick={this.logout}>Logout</NavLink>
                             </NavItem>
                         )
                     }
