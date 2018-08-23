@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {Editor, EditorState} from 'draft-js';
-
+import { EditorState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 class TextEditor extends Component {
     constructor(props) {
         super(props);
@@ -20,7 +21,9 @@ class TextEditor extends Component {
     render() {
         console.log(this.state);
         return (
-            <Editor editorState={this.state.editorState} onChange={this.onChange} />
+            <div>
+                <Editor editorState={this.state.editorState} onEditorStateChange={this.onChange} />
+            </div>
         )
     }
 }

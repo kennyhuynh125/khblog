@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import store from '../../store';
 import * as types from '../../actions/action-types';
 import { Container, Button } from 'reactstrap';
+import TextEditor from '../TextEditor';
+import Parser from 'html-react-parser';
 
 class Post extends Component {
     // when component mounts, make api call to get post then dispatch it
@@ -22,7 +24,7 @@ class Post extends Component {
     }
 
     render() {
-       const post = this.props.post !== undefined ? this.props.post[0] : undefined;
+       let post = this.props.post !== undefined ? this.props.post[0] : undefined;
         return (
             <div>
                 <Container>
@@ -31,7 +33,9 @@ class Post extends Component {
                             <div>
                                 <h1>{post.title}</h1>
                                 <p>{post.created_at}</p>
-                                <p>{post.post}</p>
+                                <div>
+                                    {Parser(post.post)}
+                                </div>
                             </div>
                         )
                     }
@@ -40,6 +44,7 @@ class Post extends Component {
                             <Button color="primary">Edit</Button>
                         )
                     }
+                    <TextEditor />
                 </Container>
             </div>
         )
