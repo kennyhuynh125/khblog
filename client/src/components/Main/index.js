@@ -4,6 +4,7 @@ import { Route } from 'react-router';
 import Home from '../Home';
 import Login from '../LogIn';
 import Post from '../Post';
+import AddPost from '../AddPost';
 
 class Main extends Component {
     render() {
@@ -12,6 +13,7 @@ class Main extends Component {
                 <Route exact path="/" component={Home} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/post/:postid" component={Post} />
+                <Route exact path="/addpost" component={AddPost} />
             </div>
         )
     }
