@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Container, Form, FormGroup, Input, Label } from 'reactstrap';
+import { Container, Form, FormGroup, Input, Label, Button } from 'reactstrap';
 import TextEditor from '../TextEditor';
-import { EditorState } from 'draft-js';
+import { EditorState, convertToRaw } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
 import { connect } from 'react-redux';
 
 class AddPost extends Component {
@@ -13,6 +14,7 @@ class AddPost extends Component {
         };
         this.onChange = this.onChange.bind(this);
         this.handleTitleChange = this.handleTitleChange.bind(this);
+        this.addPost = this.addPost.bind(this);
     }
 
     onChange = (editorState) => {
@@ -27,6 +29,15 @@ class AddPost extends Component {
         });
     }
 
+    // adds post to database
+    addPost() {
+        const htmlString = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()));
+        if (this.state.title.length === 0) {
+            alert('Post must have title!');
+            return;
+        }
+    }
+
     render() {
         return (
             <Container>
@@ -39,6 +50,7 @@ class AddPost extends Component {
                                     <Label for="title">Title</Label>
                                     <Input type="text" name="title" onChange={this.handleTitleChange} />
                                     <TextEditor editorState={this.state.editorState} onChange={this.onChange} />
+                                    <Button onClick={() => { if (window.confirm('Are you sure you want to add?'))  this.addPost() }}>Submit</Button>
                                 </FormGroup>
                             </Form>
                         </div>

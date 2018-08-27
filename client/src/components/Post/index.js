@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import store from '../../store';
 import * as types from '../../actions/action-types';
 import { Container, Button } from 'reactstrap';
-import TextEditor from '../TextEditor';
 import Parser from 'html-react-parser';
 
 class Post extends Component {
@@ -44,7 +43,6 @@ class Post extends Component {
                             <Button color="primary">Edit</Button>
                         )
                     }
-                    <TextEditor />
                 </Container>
             </div>
         )
