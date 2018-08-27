@@ -24,9 +24,10 @@ router.get('/api/posts/:id', (req, res) => {
 });
 
 // inserts new post
-router.post('/api/insertpost/', (req, res) => {
-    const query = `INSERT INTO posts (title, post) VALUES (${req.body.title}, ${req.body.post})`;
-    db.query(query, (err,response) => {
+router.post('/api/insertpost', (req, res) => {
+    const query = `INSERT INTO posts (title, post) VALUES ($1, $2)`;
+    const values = [req.body.title, req.body.post];
+    db.query(query, values, (err,response) => {
         res.send(response);
     });
 });

@@ -4,6 +4,7 @@ import TextEditor from '../TextEditor';
 import { EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 class AddPost extends Component {
     constructor(props) {
@@ -17,12 +18,14 @@ class AddPost extends Component {
         this.addPost = this.addPost.bind(this);
     }
 
+    // on change method for changing editor state
     onChange = (editorState) => {
         this.setState({
             editorState: editorState,
         });
     }
 
+    // method for changing title state
     handleTitleChange = (e) => {
         this.setState({
             title: e.target.value,
@@ -36,6 +39,17 @@ class AddPost extends Component {
             alert('Post must have title!');
             return;
         }
+        // call post method to add to database
+        axios.post('/api/insertpost', {
+            title: this.state.title,
+            post: htmlString,
+        })
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
     }
 
     render() {
