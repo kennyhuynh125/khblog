@@ -6,7 +6,8 @@ import {
     FormGroup,
     Label,
     Input,
-    Button
+    Button,
+    Container
 } from 'reactstrap';
 import store from '../../store';
 import * as types from '../../actions/action-types';
@@ -65,7 +66,7 @@ class Login extends Component {
 
     render() {
         return (
-            <div>
+            <Container>
                 <Form>
                     <FormGroup>
                         <Label for="user">Username</Label>
@@ -77,7 +78,7 @@ class Login extends Component {
                     </FormGroup>
                     <Button color="primary" onClick={this.login}>Login</Button>
                 </Form>
-            </div>
+            </Container>
         )
     }
 }

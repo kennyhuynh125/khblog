@@ -32,6 +32,15 @@ router.post('/api/insertpost', (req, res) => {
     });
 });
 
+// updates existing post
+router.post('/api/updatepost', (req, res) => {
+    const query = `UPDATE posts SET title = ($1), post = ($2) WHERE id = ($3)`;
+    const values = [req.body.title, req.body.post, req.body.id];
+    db.query(query, values, (err, response) => {
+        res.send(response);
+    });
+});
+
 // deletes post with provided id
 router.post('/api/deletepost/:id', (req, res) => {
     const query = `DELETE FROM posts WHERE id = ` + req.params.id;
@@ -42,7 +51,7 @@ router.post('/api/deletepost/:id', (req, res) => {
 
 // used for logging in user
 router.post('/api/login', (req, res) => {
-    if (req.body.username === process.env.LOGIN_USERNAME && 
+    if (req.body.username.toLowerCase() === process.env.LOGIN_USERNAME && 
         req.body.password === process.env.LOGIN_PASSWORD) {
             console.log('lit');
             res.send(true);

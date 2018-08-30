@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import store from '../../store';
 import * as types from '../../actions/action-types';
 import { Container, Button } from 'reactstrap';
@@ -39,8 +40,8 @@ class Post extends Component {
                         )
                     }
                     {
-                        this.props.isAuthenticated && (
-                            <Button color="primary">Edit</Button>
+                        this.props.isAuthenticated && post !== undefined && (
+                            <Link to={`/edit/${post.id}`}><Button color="primary">Edit</Button></Link>
                         )
                     }
                 </Container>
