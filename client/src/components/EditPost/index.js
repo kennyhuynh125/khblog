@@ -4,7 +4,7 @@ import axios from 'axios';
 import TextEditor from '../TextEditor';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
-import { Container, Form, FormGroup, Input, Label, Button } from 'reactstrap';
+import { Container, Form, FormGroup, Input, Label, Button, Col } from 'reactstrap';
 import { connect } from 'react-redux';
 
 
@@ -19,6 +19,7 @@ class EditPost extends Component {
         this.handleTitleChange = this.handleTitleChange.bind(this);
         this.onChange = this.onChange.bind(this);
         this.editPost = this.editPost.bind(this);
+        this.deletePost = this.deletePost.bind(this);
     }
 
     // when component mountrs, get post to be edited and set title/editorState to what is currently used
@@ -70,10 +71,26 @@ class EditPost extends Component {
         .then((response) => {
             console.log(response);
             alert('Post successfully updated.');
+            this.props.history.push(`/post/${this.state.id}`);
         })
         .catch((error) => {
             console.log(error);
         })
+    }
+
+    // calls api to delete given post
+    deletePost = () => {
+        axios.post('/api/deletepost', {
+            id: this.state.id,
+        })
+        .then((response) => {
+            console.log(response);
+            alert('You have deleted this post.');
+            this.props.history.push('/');
+        })
+        .catch((error) => {
+            console.log(error);
+        });
     }
 
     render() {
@@ -89,7 +106,10 @@ class EditPost extends Component {
                                 <Label for="title">Title</Label>
                                 <Input type="text" name="title" onChange={this.handleTitleChange} value={this.state.title} />
                                 <TextEditor editorState={this.state.editorState} onChange={this.onChange} />
-                                <Button onClick={() => { if (window.confirm('Are you sure you want to edit?'))  this.editPost() }}>Submit</Button>
+                                <Col>
+                                    <Button onClick={() => { if (window.confirm('Are you sure you want to edit?'))  this.editPost() }}>Submit</Button>
+                                    <Button color="danger" onClick={() => { if (window.confirm('Are you sure you want to delete post?')) this.deletePost()}}>Delete</Button>
+                                </Col>
                             </FormGroup>
                         </Form>
                     </div>

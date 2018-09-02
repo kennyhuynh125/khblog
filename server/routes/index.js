@@ -42,9 +42,10 @@ router.post('/api/updatepost', (req, res) => {
 });
 
 // deletes post with provided id
-router.post('/api/deletepost/:id', (req, res) => {
-    const query = `DELETE FROM posts WHERE id = ` + req.params.id;
-    db.query(query, (err,response) => {
+router.post('/api/deletepost', (req, res) => {
+    const query = `DELETE FROM posts WHERE id = ($1)`;
+    const values = [req.body.id];
+    db.query(query, values, (err,response) => {
         res.send(response);
     });
 });

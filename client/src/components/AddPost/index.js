@@ -46,6 +46,8 @@ class AddPost extends Component {
         })
         .then((response) => {
             console.log(response);
+            alert('Post successfully added!');
+            this.props.history.push('/');
         })
         .catch((error) => {
             console.log(error);
