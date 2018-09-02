@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import store from '../../store';
 import * as types from '../../actions/action-types';
 import {
+    Container,
     Navbar,
     NavbarBrand,
     Nav,
@@ -21,8 +22,7 @@ class Header extends Component {
             isFetching: true,
             isAuthenticated: true,
         });
-        alert('You have successfully logged out!');
-        localStorage.removeItem('id_token');
+        sessionStorage.removeItem('id_token');
         store.dispatch({
             type: types.LOGOUT_SUCCESS,
             isFetching: false,
@@ -30,38 +30,38 @@ class Header extends Component {
         });
     }
     render() {
-        console.log(this.props.isAuthenticated);
-        console.log(localStorage.getItem('id_token'));
         return (
-            <Navbar expand="md">
-            <NavbarBrand href="/" className="mr-auto">KH Blog</NavbarBrand>
-                <Nav className="ml-auto" navbar>
-                    <NavItem>
-                        <NavLink href="/">Home</NavLink>
-                    </NavItem>
-                    {
-                        !this.props.isAuthenticated && (
-                            <NavItem>
-                                <NavLink href="/login">Log In</NavLink>
-                            </NavItem>
-                        )
-                    }
-                    {
-                        this.props.isAuthenticated && (
-                            <NavItem>
-                                <NavLink href="/addpost">Add Post</NavLink>
-                            </NavItem>
-                        )
-                    }
-                    {
-                        this.props.isAuthenticated && (
-                            <NavItem>
-                                <NavLink href='#' onClick={this.logout}>Logout</NavLink>
-                            </NavItem>
-                        )
-                    }
-                </Nav>
-            </Navbar>
+            <Container>
+                <Navbar expand="md">
+                <NavbarBrand href="/" className="mr-auto">KH Blog</NavbarBrand>
+                    <Nav className="ml-auto" navbar>
+                        <NavItem>
+                            <NavLink href="/">Home</NavLink>
+                        </NavItem>
+                        {
+                            !this.props.isAuthenticated && (
+                                <NavItem>
+                                    <NavLink href="/login">Log In</NavLink>
+                                </NavItem>
+                            )
+                        }
+                        {
+                            this.props.isAuthenticated && (
+                                <NavItem>
+                                    <NavLink href="/addpost">Add Post</NavLink>
+                                </NavItem>
+                            )
+                        }
+                        {
+                            this.props.isAuthenticated && (
+                                <NavItem>
+                                    <NavLink href='#' onClick={this.logout}>Logout</NavLink>
+                                </NavItem>
+                            )
+                        }
+                    </Nav>
+                </Navbar>
+            </Container>
         )
     }
 }

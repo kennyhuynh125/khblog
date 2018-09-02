@@ -51,7 +51,7 @@ class Login extends Component {
                     isFetching: true,
                     isAuthenticated: false,
                 });
-                localStorage.setItem('id_token', 'logged');
+                sessionStorage.setItem('id_token', 'logged');
                 this.props.history.push('/');
                 store.dispatch({
                     type: types.LOGIN_SUCCESS,
